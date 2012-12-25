@@ -5,8 +5,10 @@
 	<li class="comment even thread-even depth-1" id="comment-{{comment.id}}">
 		<div id="comment-{{comment.id}}" class="comment-body">
 		<div class="comment-author vcard">
-			<img alt="" src="http://0.gravatar.com/avatar/?d=identicon&amp;s=48" class="avatar avatar-48 photo avatar-default" height="48" width="48">		
-			<cite class="fn"><a href="{%if comment.website%}{{comment.website}}{%else%}#{%endif%}" rel="external nofollow" class="url">{{comment.author}}</a></cite> <span class="says">says:</span>		
+			<img alt="" src="{{comment.gravatar_url(48)}}" class="avatar avatar-48 photo avatar-default" height="48" width="48">		
+			<cite class="fn">
+				<a href="{%if comment.website%}{{comment.website}}{%else%}#{%endif%}" rel="external nofollow" class="url" target="_blank">{{comment.author}}</a>
+			</cite> <span class="says">says:</span>		
 		</div>
 		<div class="comment-meta commentmetadata">
 			<a href="{{comment.url}}">{{comment.created|datetimeformat}}</a>		

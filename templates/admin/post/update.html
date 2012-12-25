@@ -20,7 +20,7 @@
 	<textarea class="span7"  rows="18" name="content">{{post.content}}</textarea>
 	<div class="input-prepend">
 		<span class="add-on">Tag</span>
-		<input type="text" class="span6" name="tag" value="{{post.tags}}">
+		<input type="text" class="span6" name="tag" value="{%if post.tags%}{{post.tags}}{%endif%}">
 	</div>
 	<div class="form-actions">
 		<button type="submit" class="btn btn-primary">Update changes</button>

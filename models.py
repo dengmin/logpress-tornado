@@ -110,6 +110,11 @@ class Comment(db.Model):
 	def url(self):
 		return '/post/post-%d.html#comment-%d'%(self.post.id,self.id)
 
+	def gravatar_url(self,size=80):
+		return 'http://www.gravatar.com/avatar/%s?d=identicon&s=%d' % \
+            (hashlib.md5(self.email.strip().lower().encode('utf-8')).hexdigest(),
+                 size)
+
 	class Meta:
 		db_table ='comments'
 
