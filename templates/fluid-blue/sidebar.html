@@ -23,7 +23,13 @@
 			<li class="widget widget_recent_comments">
 				<h2 class="widgettitle">最新评论</h2>
 				<ul id="recentcomments">
-					<li class="recentcomments"></li>
+					{%for comment in handler.get_recent_comments()%}
+					<li class="recentcomments">
+						<a href="{%if comment.website%}{{comment.website}}{%else%}/{%endif%}" rel="external nofollow" class="url">{{comment.author}}</a>
+						on
+						<a href="{{comment.url}}">{{comment.post.title}}</a>
+					</li>
+					{% endfor %}
 				</ul>
 			</li>
 			<li><h2>分类目录</h2>

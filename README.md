@@ -1,7 +1,7 @@
 logpress-tornado
 ================
 
-使用[tornado][tornado],[jinja2][jinja2],[peewee][peewee]开发的基于markdown写作的博客
+使用[tornado][tornado],[jinja2][jinja2],[peewee][peewee]开发的基于markdown写作的博客 [站点][demo]
 
 1. **创建数据库**
 
@@ -40,3 +40,4 @@ logpress-tornado
 [tornado]:http://www.tornadoweb.org/
 [jinja2]:http://jinja.pocoo.org/
 [peewee]:http://peewee.readthedocs.org/en/latest/index.html
+[demo]:http://blog.szgeist.com

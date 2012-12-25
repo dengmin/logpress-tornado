@@ -44,7 +44,7 @@
 				{% endfor %}
 					{%endif%}
 					Category: <a href="{{post.category.url}}" title="View all posts in {{post.category.name}}">{{post.category.name}}</a>&nbsp;&nbsp;|&nbsp;
-					<a href="{{post.url}}#comments">{{post.comment.count()}} Comments</a>
+					<a href="{{post.url}}#comments">{{post.comments.count()}} Comments</a>
 				 </div>
 			</div>
 	

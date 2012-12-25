@@ -46,6 +46,9 @@ class BlogHandler(BaseHandler):
 	def get_calendar_widget(self):
 		pass
 
+	def get_recent_comments(self):
+		return Comment.select().order_by(Comment.created.desc()).limit(5)
+
 	def render(self,template_name,**context):
 		tpl = '%s/%s'%(self.settings.get('theme_name'),template_name)
 		return BaseHandler.render(self,tpl,**context)

@@ -52,11 +52,9 @@ class PostHandler(BaseHandler):
 		tag = self.get_argument('tag',None)
 
 		category = Category.get(id=int(category_id))
-		print tag
 		post = Post.create(title=title,category=category,slug=slug,content=content,tags=tag)
 		
 		if tag:
-			print tag
 			for tag in post.taglist():
 				Tag.create(name=tag,post=post.id)
 		self.render('admin/post/add.html')
