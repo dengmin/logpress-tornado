@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version='2.0'>
+  <channel>
+  <title><![CDATA[Comments on:{{post.title}}]]></title>
+  <atom:link href="{{settings.domain}}/archive/{{post.id}}/feed" rel="self" type="application/rss+xml" />
+  <description><![CDATA[{{settings.site_desc}}]]></description>
+  <link>{{settings.domain}}</link>
+  <language>zh-cn</language>
+  <lastBuildDate>Wed, 19 Dec 2012 01:26:06 +0000</lastBuildDate>
+  <sy:updatePeriod>hourly</sy:updatePeriod>
+  <sy:updateFrequency>1</sy:updateFrequency>
+  <generator>Rss Powered By {{settings.blog_name}}</generator>
+  
+  {% for comment in post.comments %}
+  <item>
+    <title>By: {{comment.author}}</title>
+      <link>{{comment.url}}</link>
+      <dc:creator>{{comment.author}}</dc:creator>
+      <pubDate>{{comment.created}}</pubDate>
+      <guid isPermaLink="false">{{settings.domain}}/?p={{post.id}}#comment-{{comment.id}}</guid>
+      <description><![CDATA[{{comment.content}}]]></description>
+      <content:encoded><![CDATA[<p>{{comment.content}}</p>]]></content:encoded>
+  </item>
+  {% endfor %}
+  </channel>
+</rss>

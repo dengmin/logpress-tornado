@@ -1,0 +1,47 @@
+{% macro render_pagination(pagination, endpoint) %}
+  <div class="paging">
+  	{% if pagination.has_prev %}
+  	<a id="p_pre" href="{{endpoint}}/{{pagination.page-1}}">上一页</a>
+  	{% endif %}
+  {%- for page in pagination.iter_pages() %}
+    {% if page %}
+      {% if page != pagination.page %}
+        <a href="{{endpoint}}/{{page}}">{{ page }}</a>
+      {% else %}
+        <span id="p_num" class="current">{{ page }}</span>
+      {% endif %}
+    {% else %}
+      <span class=ellipsis>…</span>
+    {% endif %}
+  {%- endfor %}
+  {% if pagination.has_next %}
+  <a id="p_next" href="{{endpoint}}/{{pagination.page+1}}" rel="nofollow">下一页</a>
+  {% endif %}
+  <span id="p_meta">共 {{pagination.total}} 篇文章; {{pagination.page}}/{{pagination.pages}} 页</span>
+  </div>
+{% endmacro %}
+
+
+{% macro admin_pagination(pagination, endpoint) %}
+  <div class="pagination pagination-large pagination-centered">
+    <ul>
+    {% if pagination.has_prev %}
+    <li><a href="{{endpoint}}/{{pagination.page-1}}">Prev</a></li>
+    {% endif %}
+  {%- for page in pagination.iter_pages() %}
+    {% if page %}
+      {% if page != pagination.page %}
+        <li><a href="{{endpoint}}/{{page}}">{{ page }}</a></li>
+      {% else %}
+        <li class="active"><a href="#">{{ page }}</a></li>
+      {% endif %}
+    {% else %}
+      <li class="disabled"><a href="#">...</a></li>
+    {% endif %}
+  {%- endfor %}
+  {% if pagination.has_next %}
+  <li><a href="{{endpoint}}/{{pagination.page+1}}">Next</a></li>
+  {% endif %}
+  </ul>
+  </div>
+{% endmacro %}

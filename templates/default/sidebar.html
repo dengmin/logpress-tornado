@@ -1,0 +1,53 @@
+<ul id="sidebar">
+	<li class="widget widget_text"></li>
+	<li class="widget widget_search">
+		<form role="search" method="get" id="searchform" action="http://demo.daxiawp.com/dx-qwt/">
+			<div><label class="screen-reader-text" for="s">搜索：</label>
+			<input type="text" value="" name="s" id="s">
+			<input type="submit" id="searchsubmit" value="搜索">
+			</div>
+		</form>
+	</li>
+
+	<li class="widget widget_recent_entries">
+		<h3 class="widgettitle">近期文章</h3>
+		<ul>
+			{% for post in handler.get_recent_posts()%}
+			<li>
+				<a href="{{post.url}}">{{post.title}}</a>
+			</li>
+			{%endfor%}
+		</ul>
+	</li>
+
+	<li class="widget widget_categories">
+		<h3 class="widgettitle">分类目录</h3>
+		<ul>
+			{% for category in handler.get_category() %}
+			<li>
+				<a href="{{category.url}}">{{category.name}}({{category.posts.count()}})</a>
+			</li>
+			{%endfor%}
+		</ul>
+	</li>
+
+	<li class="widget widget_tag_cloud">
+		<h3 class="widgettitle">标签</h3>
+		<div class="tagcloud">
+			{% for tag in handler.get_tagcloud()%}
+				<a href="{{tag.url}}" style="font-size:14pt;">{{tag.name}}<span>{{tag.count}}</span></a>
+			{% endfor %}
+		</div>
+	</li>
+
+	<li class="widget widget_links">
+		<h3 class="widgettitle">友情链接</h3>
+		<ul>
+			{% for link in handler.get_links()%}
+			<li>
+				<a href="{{link.url}}" target="_blank">{{link.name}}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</li>
+</ul>

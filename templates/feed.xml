@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rss version='2.0'>
+  <channel>
+  <title><![CDATA[{{settings.blog_name}}]]></title>
+  <description><![CDATA[{{settings.site_desc}}]]></description>
+  <link>{{settings.domain}}</link>
+  <language>zh-cn</language>
+  <docs>{{settings.blog_name}}</docs>
+  <sy:updatePeriod>hourly</sy:updatePeriod>
+  <sy:updateFrequency>1</sy:updateFrequency>
+  <generator>Rss Powered By {{settings.blog_name}}</generator>
+  <image>
+    <url>http://www.2tu.cc/pic/logo.gif</url>
+  </image>
+  {% for post in posts%}
+  <item>
+    <title><![CDATA[{{post.title}}]]></title>
+    <link>{{settings.doamin}}{{post.url}}</link>
+    <comments></comments>
+    <pubDate>{{post.published|datetimeformat}}</pubDate>
+    <description><![CDATA[{{post.content|mdconvert}}]]></description>
+    <wfw:commentRss>{{settings.domain}}/archive/{{post.id}}/feed</wfw:commentRss>
+    <slash:comments>1</slash:comments>
+  </item>
+  {% endfor %}
+  </channel>
+</rss>

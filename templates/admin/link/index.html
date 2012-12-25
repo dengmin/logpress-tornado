@@ -1,0 +1,29 @@
+{%extends "admin/base.html" %}
+{% block main %}
+<div class="well">
+	<form method="post" class="form-inline" action="/admin/links">
+		<input type="text" name="name" placeholder="Name"/>
+		<input type="text" name="url" placeholder="URL"/>
+		<button type="submit" class="btn btn-primary">Save</button>
+	</form>
+</div>
+<table class="table table-bordered table-hover">
+	<h2>Link list</h2>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>URL</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for o in pagination.items%}
+		<tr>
+			<td>{{o.name}}</td>
+			<td>{{o.url}}</td>
+		</tr>
+		{%endfor%}
+	</tbody>
+</table>
+{% from "macros/pagination.html" import admin_pagination%}
+{{admin_pagination(pagination,'/admin/links')}}
+{% endblock %}

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>{%block title%}{%endblock%}{{settings.blog_name}}</title>
+
+<link rel="stylesheet" href="{{static('fluid/style.css')}}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{{static('fluid/print.css')}}" type="text/css" media="print" />
+<link rel="alternate" type="application/rss+xml" title="{{settings.blog_name}} RSS Feed" href="/feed" />
+<link rel="pingback" href="" />
+</head>
+
+<body>
+<div id="page">
+<div id="header">
+	<div id="headertitle">
+		<h1><a href="/" title="{{settings.blog_name}}: {{settings.site_desc}}">{{settings.blog_name}}</a></h1>
+		<p>{{settings.site_desc}}</p>
+	</div> 
+	<!-- Search box (If you prefer having search form as a sidebar widget, remove this block) -->
+	<div class="search">
+		
+	</div> 
+	<!-- Search ends here-->
+		
+</div>
+
+<div id="navbar">
+<ul id="nav">
+	<li><a href="/">Home</a></li>
+	{%for category in handler.get_category()%}
+	<li><a href="{{category.url}}">{{category.name}}</a></li>
+	{%endfor%}
+</ul>
+</div>
+<div id="wrapper">
+	{%block main%}
+	{%endblock%}
+</div> <!-- wrapper -->
+<div id="footer">
+	<a href="/feed">RSS</a>. Valid <a href="http://validator.w3.org/check/referer" title="This page validates as XHTML 1.0 Transitional"><abbr title="eXtensible HyperText Markup Language">XHTML</abbr></a> and <a href="http://jigsaw.w3.org/css-validator/check/referer"><abbr title="Cascading Style Sheets">CSS</abbr></a>.<br />
+	Powered by <a href="http://www.tornadoweb.org/" target='_blank'>Tornado</a> and <a href="http://srinig.com/wordpress/themes/fluid-blue/">Fluid Blue theme</a>.<br />
+</div>
+</div> <!-- page -->
+</body>
+</html>

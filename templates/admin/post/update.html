@@ -1,0 +1,29 @@
+{%extends "admin/base.html"%}
+{%block main%}
+<form action="/admin/post/{{post.id}}/update" method="post">
+	<div class="input-prepend">
+		<span class="add-on">Title</span>
+		<input type="text" class="span5" name="title" value="{{post.title}}">
+	</div>
+	<div class="input-prepend">
+		<span class="add-on">Slug</span>
+		<input type="text" class="span5" name="slug" value="{{post.slug}}">
+	</div>
+	<label class="inline " for="category">Category
+		<select name="category" class="span4" id="category">
+		{% for c in category%}
+			<option value="{{c.id}}">{{c.name}}</option>
+		{% endfor %}
+		</select>
+	</label>
+	
+	<textarea class="span7"  rows="18" name="content">{{post.content}}</textarea>
+	<div class="input-prepend">
+		<span class="add-on">Tag</span>
+		<input type="text" class="span6" name="tag" value="{{post.tags}}">
+	</div>
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Update changes</button>
+	</div>
+</form>
+{%endblock%}

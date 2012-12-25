@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Admin Login</title>
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://lib.sinaapp.com/js/bootstrap/latest/css/bootstrap.min.css" type="text/css"/>
+    <style type="text/css">
+      /* Override some defaults */
+      html, body {
+        background-color: #eee;
+      }
+      body {
+        padding-top: 40px; 
+      }
+      .container {
+        width: 400px;
+      }
+
+      /* The white background content wrapper */
+      .container > .content {
+        background-color: #fff;
+        padding: 20px;
+        margin: 0 -20px; 
+        -webkit-border-radius: 10px 10px 10px 10px;
+           -moz-border-radius: 10px 10px 10px 10px;
+                border-radius: 10px 10px 10px 10px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                box-shadow: 0 1px 2px rgba(0,0,0,.15);
+      }
+
+    .login-form {
+      margin-left: 65px;
+    }
+  
+    legend {
+      margin-right: -50px;
+      font-weight: bold;
+      color: #404040;
+    }
+
+    </style>
+
+</head>
+<body>
+  <div class="container">
+      <div class="content">
+          <div class="row">
+              <div class="login-form">
+                  <h2>Admin Login</h2>
+                  <form action="/account/login" method="post">
+                    {%set messages=handler.get_flashed_messages() %}
+                    {%if messages%}
+                        <div class="alert alert-error">
+                        {% for type, msg in messages%}
+                          {{msg}}
+                        {% endfor %}
+                        </div>
+                    {%endif%}
+                          <div class="input-prepend">
+                              <span class="add-on">帐号</span>
+                              <input class="span3" type="text" placeholder="UserName/Email" name="username">
+                          </div>
+                          <div class="input-prepend">
+                            <span class="add-on">密码</span>
+                              <input class="span3" type="password" placeholder="" name="password">
+                          </div>
+                          <button class="btn btn-primary" type="submit">登录</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div> <!-- /container -->
+</body>
+</html>

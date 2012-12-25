@@ -1,0 +1,68 @@
+{%extends "fluid-blue/base.html"%}
+{%block title%}
+{% if flag == 'category'%}
+		Archive for the &#8216;{{name}}&#8217; Category.
+	{%elif flag=='tag'%}
+		Posts tagged &#8216;{{name}}&#8217;
+	{% endif %}
+{%endblock%}
+{%block main%}
+
+	<div id="content">
+
+	{% if pagination.total %}
+
+	{% if flag == 'category'%}
+		<p>Archive for the &#8216;{{name}}&#8217; Category.</p>
+	{%elif flag=='tag'%}
+		<p>Posts tagged &#8216;{{name}}&#8217;</p>
+	{% endif %}
+		
+		<div class="navigation">
+			<div class="alignleft"><?php next_posts_link('&laquo; Previous Entries') ?></div>
+			<div class="alignright"><?php previous_posts_link('Next Entries &raquo;') ?></div>
+		</div>
+
+		{%for post in pagination.items %}
+				
+			<div class="post" id="post-{{post.id}}">
+				<h2 class="posttitle"><a href="{{post.url}}" rel="bookmark" title="Permanent Link to {{post.title}}">{{post.title}}</a></h2>
+				<div class="postmetadata">{{post.created|datetimeformat}}</div>
+				<div class="postentry">
+					{{post.content|markdown}}
+				</div>
+		
+				<div class="postmetadata">
+					{%if post.tags %}
+					Tags:
+					{%for tag in post.taglist() %}
+					{%if loop.last%}
+					<a href="/tag/{{tag}}">{{tag}}</a>.
+					{%else%}
+					<a href="/tag/{{tag}}">{{tag}}</a>,
+					{%endif%} 
+				{% endfor %}
+					{%endif%}
+					Category: <a href="{{post.category.url}}" title="View all posts in {{post.category.name}}">{{post.category.name}}</a>&nbsp;&nbsp;|&nbsp;
+					<a href="{{post.url}}#comments">{{post.comment.count()}} Comments</a>
+				 </div>
+			</div>
+	
+		{%endfor %}
+
+		<div class="navigation">
+			<div class="alignleft"><?php next_posts_link(__('&laquo; Previous Entries')) ?></div>
+			<div class="alignright"><?php previous_posts_link(__('Next Entries &raquo;')) ?></div>
+		</div>
+		
+	{%else%}
+		<div class="post">
+			<h2 class="posttitle">Not Found</h2>
+			<div class="postentry"><p>Sorry, no posts matched your criteria.</p></div>
+		</div>
+
+	{%endif%}
+
+	</div>
+	{%include "fluid-blue/sidebar.html"%}
+{%endblock%}

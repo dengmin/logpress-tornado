@@ -1,0 +1,38 @@
+{% extends "default/base.html" %}
+{% block main %}
+<div id="main">
+	<div id="content" class="post-{{post.id}} post singular">
+		<h1>{{post.title}}</h1>
+		<div class="post-content">
+			{{post.content|markdown}}
+			<div class="cb"></div>
+		</div>
+		<div class="post-meta">
+			<div class="time">发表于：{{post.created|datetimeformat}}</div>
+			<div class="category">分类：{{post.category.name}}</div>
+			{%if post.tags%}
+			<div class="tags">标签：
+				{%for tag in post.taglist() %}
+				{%if loop.last%}{{tag}}.{%else%}{{tag}},{%endif%} 
+				{% endfor %}
+			</div>
+			{%endif%}
+			{%if post.prev%}
+				<div class="previous">
+					上一篇：<a href="{{post.prev.url}}" rel="prev">{{post.prev.title}}</a>
+				</div>
+			{%endif%}
+			{%if post.next%}
+				<div class="next">
+					下一篇：<a href="{{post.next.url}}" rel="next">{{post.next.title}}</a>
+				</div>
+			{%endif%}
+		</div>
+		<div id="comments">
+			{%include "default/comment.html"%}
+		</div>
+	</div>
+{% include "default/sidebar.html" %}
+<div class="cb"></div>
+</div>
+{% endblock %}

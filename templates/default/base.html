@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if IE 9]>
+<html id="ie9" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8) | !(IE 9) ]><!-->
+<html lang="zh-CN">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>{{settings.blog_name}}</title>
+<link rel="stylesheet" type="text/css" media="all" href="{{static('default/style.css')}}" />
+<link rel="pingback" href="" />
+<link rel="alternate" type="application/rss+xml" title="{{settings.blog_name}} &raquo; Feed" href="/feed" />
+
+</head>
+<body class="home blog">
+	<div id="header-wrap">
+		<div id="header">
+			<div class="h_top">
+				<h1><a href="{{settings.domain}}" title="{{settings.blog_name}}">{{settings.blog_name}}</a></h1>
+				<p>blog</p>
+			</div>
+			<div class="h_bottom">
+				<ul class="main-menu">
+					<li><a href="/">Home</a></li>
+					{%for category in handler.get_category()%}
+					<li><a href="{{category.url}}">{{category.name}}</a></li>
+					{%endfor%}
+				</ul>
+			</div>
+			<div class="cb"></div>
+		</div>
+	</div>
+	
+	<div id="wrap">
+		{% block main %}
+		{% endblock %}
+		<div id="footer">
+			<div id="copyright">
+				©2013 <a href="{{settings.doamin}}" title="{{settings.blog_name}}">{{settings.blog_name}}</a> All rights reserved. {% set request_time = 1000.0 * request.request_time() %}
+				<span class="label-success">{{"%.2f ms" % request_time}}</span>
+			</div>
+			<p class="daxiawp">
+				@Theme <a href="http://www.daxiawp.com/">daxiawp</a>
+			@Powerby <a href="http://www.tornadoweb.org/" target='_blank'>Tornado</a>,
+			<a href="http://github.com/coleifer/peewee/" target="_blank">Peewee</a>
+			Nginx
+			</p>
+			<div class="cb"></div>
+		</div>
+	</div>
+</body>
+</html>

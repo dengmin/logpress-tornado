@@ -1,0 +1,71 @@
+	<div id="sidebar">
+		<ul>
+			<li id="" class="widget widget_search">
+				<form role="search" method="get" id="searchform" action="http://demo.daxiawp.com/dx-qwt/">
+					<div>
+					<input type="text" size="20" name="s" id="s" value="Search..." onblur="if(this.value=='') this.value='Search...';" onfocus="if(this.value=='Search...') this.value='';">
+					<input type="submit" id="searchsubmit" value="搜索">
+					</div>
+				</form>
+			</li>
+
+			<li class="widget widget_recent_entries">
+				<h2 class="widgettitle">近期文章</h2>
+				<ul>
+					{% for post in handler.get_recent_posts()%}
+					<li>
+						<a href="{{post.url}}">{{post.title}}</a>
+					</li>
+					{%endfor%}
+				</ul>
+			</li>
+
+			<li class="widget widget_recent_comments">
+				<h2 class="widgettitle">最新评论</h2>
+				<ul id="recentcomments">
+					<li class="recentcomments"></li>
+				</ul>
+			</li>
+			<li><h2>分类目录</h2>
+				<ul>
+				{% for category in handler.get_category() %}
+				<li class="cat-item cat-item-{{category.id}}">
+					<a href="{{category.url}}">{{category.name}}({{category.posts.count()}})</a>
+				</li>
+				{% endfor %}
+				</ul>
+			</li>
+			<li>
+				<h2>文章归档</h2>
+				<ul>
+					{%set q = handler.get_archives()%}
+					{%if q%}
+					{%for post in q%}
+					<li class="cat-item">
+						<a href="#">{{post.month}}({{post.count}})</a>
+					</li>
+					{% endfor %}
+					{%endif%}
+				</ul>
+			</li>
+			<li>
+				<h2>随机文章</h2>
+				<ul>
+					{% for post in handler.get_random_posts() %}
+					<li>
+						<a href="{{post.url}}">{{post.title}}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</li>
+			<li class="widget widget_tag_cloud">
+				<h2 class="widgettitle">标签</h2>
+				<div class="tagcloud">
+					{% for tag in handler.get_tagcloud()%}
+						<a href="{{tag.url}}" style="font-size:14pt;">{{tag.name}}<span>{{tag.count}}</span></a>
+					{% endfor %}
+				</div>
+			</li>
+
+		</ul>
+	</div>

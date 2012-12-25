@@ -1,0 +1,30 @@
+{%extends "admin/base.html" %}
+{% block main %}
+<div class="well">
+	<a class="btn btn-success" href="/admin/post/add">New Post</a>
+</div>
+<table class="table table-bordered table-hover">
+	<h2>Post list</h2>
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Category</th>
+			<th>Time</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for post in pagination.items %}
+		<tr>
+			<td>{{post.title}}</td>
+			<td>{{post.category.name}}</td>
+			<td>{{post.created|datetimeformat}}</td>
+			<td><a href="/admin/post/{{post.id}}/update" class="btn">Update</a> 
+				<a href="/admin/post/{{post.id}}/delete" class="btn">Delete</a></td>
+		</tr>
+		{%endfor%}
+	</tbody>
+</table>
+{% from "macros/pagination.html" import admin_pagination%}
+{{admin_pagination(pagination,'/admin/posts')}}
+{% endblock %}

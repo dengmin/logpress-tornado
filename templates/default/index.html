@@ -1,0 +1,39 @@
+{% extends "default/base.html" %}
+{%block main%}
+<div id="main">
+	<div id="content">
+		<ul>
+	{% for post in pagination.items %}
+	<li class="menu-item post-list">
+		<div class="post-meta">
+			<p class="time">{{post.created|datetimeformat}}</p>
+			<p class="category">分类：<a href="{{post.category.url}}">{{post.category.name}}</a></p>
+			{%if post.tags %}
+			<p class="tags">标签：
+				{%for tag in post.taglist() %}
+					{%if loop.last%}
+					<a href="/tag/{{tag}}">{{tag}}</a>.
+					{%else%}
+					<a href="/tag/{{tag}}">{{tag}}</a>,
+					{%endif%} 
+				{% endfor %}
+			</p>
+			{%endif%}
+		</div>
+		<div class="post-wrap">
+			<h2><a href="{{post.url}}" title="{{post.title}}">{{post.title}}</a></h2>
+			<div class="post-content">
+				{{post.content|markdown}}
+			</div>
+		</div>
+		<div class="cb"></div>
+	</li>
+	{% endfor %}
+</ul>
+		{% from "macros/pagination.html" import render_pagination%}
+		{{render_pagination(pagination,'/page')}}
+	</div>
+	{% include "default/sidebar.html" %}
+	<div class="cb"></div>
+</div>
+{%endblock%}

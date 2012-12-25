@@ -1,0 +1,51 @@
+{%extends "fluid-blue/base.html"%}
+{%block title%}{{post.title}}{%endblock%}
+{%block main%}
+	<div id="content">
+		{%if post%}
+		<div class="navigation">
+			{%if post.prev%}
+			<div class="alignleft"><a href="{{post.prev.url}}" rel="prev">{{post.prev.title}}</a></div>
+			{%endif%}
+			{%if post.next%}
+			<div class="alignright"><a href="{{post.next.url}}" rel="next">{{post.next.title}}</a></div>
+			{%endif%}
+		</div>
+
+		<div class="post" id="post-{{post.id}}">
+			<h2 class="posttitle"><a href="{{post.url}}" rel="bookmark" title="Permanent Link to {{post.title}}">
+				{{post.title}}</a></h2>
+			<div class="postmetadata">{{post.created|datetimeformat}}</div>
+			<div class="postentry">
+				{{post.content|markdown}}
+			</div>
+	
+			<div class="postmetadata">
+				<div class="postmetadata">
+					{%if post.tags %}
+					Tags:
+					{%for tag in post.taglist() %}
+					{%if loop.last%}
+					<a href="/tag/{{tag}}">{{tag}}</a>.
+					{%else%}
+					<a href="/tag/{{tag}}">{{tag}}</a>,
+					{%endif%} 
+				{% endfor %}
+					{%endif%}
+					Category: <a href="{{post.category.url}}" title="View all posts in {{post.category.name}}">{{post.category.name}}</a>&nbsp;&nbsp;|&nbsp;<a href="#respond">Comment</a>
+				 </div>
+			</div>
+		</div>
+		
+			{%include "fluid-blue/comment.html"%}
+
+	{%else%}
+		<div class="post">
+			<h2 class="posttitle">'Not Found</h2>
+			<div class="postentry"><p>Sorry, no posts matched your criteria.</p></div>
+		</div>
+	{%endif%}
+
+	</div>
+	{%include "fluid-blue/sidebar.html"%}
+{%endblock%}
