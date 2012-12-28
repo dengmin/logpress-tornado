@@ -11,6 +11,8 @@ from peewee import fn
 from peewee import RawQuery
 from tornado.web import StaticFileHandler
 from database import db
+from lib.mail.message import EmailMessage,TemplateEmailMessage
+from playhouse.signals import connect, post_save
 
 class BlogHandler(BaseHandler):
 
@@ -100,6 +102,11 @@ class CommentFeedHandler(BaseHandler):
 		self.render('comment_feed.xml',post=post)
 
 class PostCommentHandler(BaseHandler):
+
+	@property
+	def mail_connection(self):
+		return self.application.email_backend
+
 	def post(self):
 		postid = self.get_argument('comment_post_ID')
 		author = self.get_argument('author',None)
@@ -107,6 +114,16 @@ class PostCommentHandler(BaseHandler):
 		url = self.get_argument('url',None)
 		comment = self.get_argument('comment',None)
 		parent_id = self.get_argument('comment_parent',None)
+
+		@connect(post_save,sender=Comment)
+		def send_email(model_class, instance,created):
+			if instance.parent_id == '0':
+				message = TemplateEmailMessage(u"收到新的评论",'mail/new_comment.html',
+					self.settings['smtp_user'],to=[self.settings['smtp_user']],connection=self.mail_connection)
+			else:
+				message = TemplateEmailMessage(u"评论有新的回复",'mail/reply_comment.html',
+					self.settings['smtp_user'],to=[instance.email],connection=self.mail_connection)
+			message.send()
 
 		if postid:
 			post = Post.get(id=int(postid))
@@ -116,7 +133,7 @@ class PostCommentHandler(BaseHandler):
 					content=comment,parent_id=parent_id)
 				return self.redirect(comment.url)
 			else:
-				self.flash("请填写必要信息(姓名和电子邮件和评论内容)")
+				self.flash(u"请填写必要信息(姓名和电子邮件和评论内容)")
 				self.redirect("%s#respond"%(post.url))
 
 routes = [

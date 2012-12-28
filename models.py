@@ -5,7 +5,6 @@ import datetime
 import hashlib
 from database import db
 from lib.helpers import create_token,cached_property
-from playhouse.signals import connect, post_save
 
 class User(db.Model):
 	username = peewee.CharField()
@@ -101,8 +100,8 @@ class Comment(db.Model):
 	parent_id = peewee.IntegerField(null=True)
 	created = peewee.DateTimeField(default=datetime.datetime.now)
 
-	@cached_property
-	def perent(self):
+	@property
+	def parent(self):
 		p = Comment.select().where(Comment.parent_id==self.parent_id,Comment.id==self.id)
 		return p.get() if p.exists() else None
 
@@ -125,6 +124,3 @@ class Link(db.Model):
 	class Meta:
 		db_table = 'links'
 
-@connect(post_save,sender=Comment)
-def send_email(model_class, instance,created):
-	print model_class,instance

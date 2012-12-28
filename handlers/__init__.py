@@ -53,6 +53,7 @@ class BaseHandler(RequestHandler,FlashMessagesMixin,ExceptionMixin):
 
 
 
+
 class ErrorHandler(BaseHandler):
 	def prepare(self):
 		self.set_status(404)

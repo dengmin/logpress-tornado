@@ -10,8 +10,8 @@ import os,sys
 from jinja2 import Environment, FileSystemLoader
 from lib import filters,session
 from lib.helpers import setting_from_object
+from lib.mail import EmailBackend
 import config
-
 import redis
 
 define("cmd", default='runserver', metavar="runserver|createuser")
@@ -43,6 +43,11 @@ class Application(tornado.web.Application):
 		tornado.web.Application.__init__(self,handlers,**settings)
 		self.redis = redis.StrictRedis()
 		self.session_store = session.RedisSessionStore(self.redis)
+		
+		self.email_backend = EmailBackend(
+			settings['smtp_server'],settings['smtp_port'],
+			settings['smtp_user'],settings['smtp_password'],settings['smtp_usetls'],
+			template_loader=self.jinja_env)
 
 def runserver():
 	http_server = HTTPServer(Application(),xheaders=True)
