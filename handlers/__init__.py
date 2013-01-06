@@ -5,6 +5,7 @@ from tornado.web import RequestHandler,HTTPError
 from handlers.mixin import FlashMessagesMixin,ExceptionMixin
 from lib.session import Session
 import os
+import urllib
 
 class BaseHandler(RequestHandler,FlashMessagesMixin,ExceptionMixin):
 
@@ -52,7 +53,17 @@ class BaseHandler(RequestHandler,FlashMessagesMixin,ExceptionMixin):
 		return self.get_argument("next", None)
 
 
+class AdminBaseHandler(BaseHandler):
 
+	def prepare(self):
+		if not self.current_user:
+			if self.request.method == "GET":
+				url = self.get_login_url()
+				if "?" not in url:
+					url += "?" + urllib.urlencode(dict(next=self.request.full_url()))
+				self.redirect(url)
+			raise HTTPError(403)
+		super(AdminBaseHandler, self).prepare()
 
 class ErrorHandler(BaseHandler):
 	def prepare(self):

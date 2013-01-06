@@ -12,7 +12,7 @@
 	<label class="inline " for="category">Category
 		<select name="category" class="span4" id="category">
 		{% for c in category%}
-			<option value="{{c.id}}">{{c.name}}</option>
+			<option value="{{c.id}}" {%if c==post.category%}selected{%endif%}>{{c.name}}</option>
 		{% endfor %}
 		</select>
 	</label>

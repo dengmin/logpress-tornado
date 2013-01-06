@@ -17,8 +17,8 @@
     <title><![CDATA[{{post.title}}]]></title>
     <link>{{settings.doamin}}{{post.url}}</link>
     <comments></comments>
-    <pubDate>{{post.published|datetimeformat}}</pubDate>
-    <description><![CDATA[{{post.content|mdconvert}}]]></description>
+    <pubDate>{{post.created|datetimeformat}}</pubDate>
+    <description><![CDATA[{{post.content|markdown}}]]></description>
     <wfw:commentRss>{{settings.domain}}/archive/{{post.id}}/feed</wfw:commentRss>
     <slash:comments>1</slash:comments>
   </item>
