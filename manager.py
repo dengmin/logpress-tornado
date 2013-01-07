@@ -6,13 +6,13 @@ import tornado.web
 from tornado.httpserver import HTTPServer
 from tornado.options import define,options
 from tornado.web import url
-import os,sys
-from jinja2 import Environment, FileSystemLoader
+import sys
+
 from lib import filters,session
-from lib.helpers import setting_from_object
-from lib.mail import EmailBackend
-import config
-import redis
+
+from core import jinja_environment,smtp_server
+from core import settings
+from core import redis_server
 
 define("cmd", default='runserver', metavar="runserver|createuser")
 define("port",default=9000,type=int)
@@ -21,19 +21,9 @@ define("autoreload",default=False,type=bool)
 class Application(tornado.web.Application):
 	def __init__(self):
 		from urls import routes as handlers
-		settings = setting_from_object(config)
-		settings.update({
-			'template_path':os.path.join(os.path.dirname(__file__),'templates'),
-			'static_path':os.path.join(os.path.join(os.path.dirname(__file__),'static')),
-			'cookie_secret':"NjAzZWY2ZTk1YWY5NGE5NmIyYWM0ZDAzOWZjMTg3YTU=|1355811811|3245286b611f74805b195a8fec1beea7234d79d6",
-			'login_url':'/account/login',
-			'autoescape':None
-		})
+		
 		#init jiaja2 environment
-		self.jinja_env = Environment(
-			loader = FileSystemLoader(settings['template_path']),
-			auto_reload = settings['debug'],
-			autoescape = False)
+		self.jinja_env = jinja_environment
 
 		#register filters for jinja2
 		self.jinja_env.filters.update(filters.register_filters())
@@ -41,13 +31,8 @@ class Application(tornado.web.Application):
 		
 		self.jinja_env.globals['settings'] = settings
 		tornado.web.Application.__init__(self,handlers,**settings)
-		self.redis = redis.StrictRedis()
-		self.session_store = session.RedisSessionStore(self.redis)
-		
-		self.email_backend = EmailBackend(
-			settings['smtp_server'],settings['smtp_port'],
-			settings['smtp_user'],settings['smtp_password'],settings['smtp_usetls'],
-			template_loader=self.jinja_env)
+		self.session_store = session.RedisSessionStore(redis_server)
+		self.email_backend = smtp_server
 
 def runserver():
 	http_server = HTTPServer(Application(),xheaders=True)

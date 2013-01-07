@@ -3,8 +3,10 @@
 import peewee
 import datetime
 import hashlib
-from database import db
+import urllib
+from core import db
 from lib.helpers import create_token,cached_property
+from core import smtp_server,settings
 
 class User(db.Model):
 	username = peewee.CharField()
@@ -88,12 +90,12 @@ class Tag(db.Model):
 
 	@property
 	def url(self):
-		return '/tag/%s'%(self.name)
+		return '/tag/%s'%(urllib.quote(self.name.encode('utf8')))
 
 class Comment(db.Model):
 	post = peewee.ForeignKeyField(Post, related_name='comments')
 	author = peewee.CharField()
-	website = peewee.CharField()
+	website = peewee.CharField(null=True)
 	email = peewee.CharField()
 	content = peewee.TextField()
 	ip = peewee.TextField()
@@ -123,4 +125,17 @@ class Link(db.Model):
 
 	class Meta:
 		db_table = 'links'
+
+
+from playhouse.signals import connect, post_save
+from lib.mail.message import TemplateEmailMessage
+@connect(post_save,sender=Comment)
+def send_email(model_class, instance,created):
+	if instance.parent_id == '0':
+		message = TemplateEmailMessage(u"收到新的评论",'mail/new_comment.html',
+			settings['smtp_user'],to=[settings['admin_email']],connection=smtp_server)
+	else:
+		message = TemplateEmailMessage(u"评论有新的回复",'mail/reply_comment.html',
+			settings['smtp_user'],to=[instance.email],connection=smtp_server)
+	message.send()
 

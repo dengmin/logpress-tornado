@@ -16,9 +16,9 @@ DB_USER = 'root'
 DB_PASSWD = 'root'
 DB_NAME = os.path.join(os.path.dirname(__file__),'blog.db')  #db file if DB_ENGINE is SqliteDatabase
 
-
+ADMIN_EMAIL = '594611460@qq.com'
 SMTP_SERVER ='smtp.qq.com'
 SMTP_PORT = 587
-SMTP_USER = '594611460@qq.com'
-SMTP_PASSWORD = 'xxxxxxxxx'
+SMTP_USER = 'noreply@szgeist.com'
+SMTP_PASSWORD = 'xxxxxxx'
 SMTP_USETLS = True

@@ -1,0 +1,14 @@
+{{old.author}} 您好,您之前在文章 <b>"{{comment.object.title}}"</b> 上的评论现在有了新的回复</br>
+<p/>
+您之前的评论是:<br/>
+{{old.content|safe}}<br/>
+<p/>
+{{comment.author}}给您的新的回复如下:<br/>
+{{comment.content|safe}}<br/>
+<p/>
+您可以点击以下链接查看具体内容:<br/>
+<a href="{{domain}}/{{comment.get_absolute_url}}">{{domain}}/{{comment.get_absolute_url}}</a><br/>
+<p/>
+感谢您对 <a href="{{domain}}" target="_blank">{{blog.title}}</a> 的关注<br/>
+<p/>
+<b>该信件由系统自动发出, 请勿回复, 谢谢.</b>

@@ -4,15 +4,13 @@
 from jinja2 import FileSystemLoader
 from handlers import BaseHandler
 from models import Post,Category,Tag,Link,Comment
-import os
+import os,re
 from lib.pagination import Pagination
 import peewee
 from peewee import fn
 from peewee import RawQuery
 from tornado.web import StaticFileHandler
 from database import db
-from lib.mail.message import EmailMessage,TemplateEmailMessage
-from playhouse.signals import connect, post_save
 
 class BlogHandler(BaseHandler):
 
@@ -101,6 +99,11 @@ class CommentFeedHandler(BaseHandler):
 		post = Post.get(id=int(postid))
 		self.render('comment_feed.xml',post=post)
 
+_email_re = re.compile(
+    r"(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*"  # dot-atom
+    r'|^"([\001-\010\013\014\016-\037!#-\[\]-\177]|\\[\001-011\013\014\016-\177])*"' # quoted-string
+    r')@(?:[A-Z0-9]+(?:-*[A-Z0-9]+)*\.)+[A-Z]{2,6}$', re.IGNORECASE)
+
 class PostCommentHandler(BaseHandler):
 
 	@property
@@ -115,35 +118,29 @@ class PostCommentHandler(BaseHandler):
 		comment = self.get_argument('comment',None)
 		parent_id = self.get_argument('comment_parent',None)
 
-		@connect(post_save,sender=Comment)
-		def send_email(model_class, instance,created):
-			if instance.parent_id == '0':
-				message = TemplateEmailMessage(u"收到新的评论",'mail/new_comment.html',
-					self.settings['smtp_user'],to=[self.settings['smtp_user']],connection=self.mail_connection)
-			else:
-				message = TemplateEmailMessage(u"评论有新的回复",'mail/reply_comment.html',
-					self.settings['smtp_user'],to=[instance.email],connection=self.mail_connection)
-			message.send()
-
 		if postid:
 			post = Post.get(id=int(postid))
 			if author and email and comment:
+				if not _email_re.match(email):
+					self.flash(u'Email address is invalid.')
+					return self.redirect("%s#respond"%(post.url))
+				
 				comment = Comment.create(post=post,ip=self.request.remote_ip,
 					author=author,email=email,website=url,
 					content=comment,parent_id=parent_id)
 				return self.redirect(comment.url)
 			else:
 				self.flash(u"请填写必要信息(姓名和电子邮件和评论内容)")
-				self.redirect("%s#respond"%(post.url))
+				return self.redirect("%s#respond"%(post.url))
 
 routes = [
 	(r"/", IndexHandler),
 	(r'/page/(\d+)',IndexHandler),
 	(r'/post/post-(\d+).html',PostHandler),
-	(r'/tag/(\w+)',TagHandler),
-	(r'/tag/(\w+)/(\d+)',TagHandler),
-	(r'/category/(\w+)',CategoryHandler),
-	(r'/category/(\w+)/(\d+)',CategoryHandler),
+	(r'/tag/([^/]+)',TagHandler),
+	(r'/tag/([^/]+)/(\d+)',TagHandler),
+	(r'/category/([^/]+)',CategoryHandler),
+	(r'/category/([^/]+)/(\d+)',CategoryHandler),
 	(r'/feed',FeedHandler),
 	(r'/archive/(\d+)/feed',CommentFeedHandler),
 	(r'/post/new_comment',PostCommentHandler),
