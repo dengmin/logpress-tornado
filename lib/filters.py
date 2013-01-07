@@ -20,9 +20,14 @@ def truncate_words(s, num=50, end_text='...'):
 def mdconvert (value):
 	return markdowner.convert(value)
 
+def null(value):
+	return value if value else ""
+
+
 def register_filters():
 	filters ={}
 	filters['truncate_words']=truncate_words
 	filters['datetimeformat']=datetimeformat
 	filters['markdown']=mdconvert
+	filters['null']=null
 	return filters

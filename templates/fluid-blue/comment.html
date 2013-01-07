@@ -29,13 +29,13 @@
 	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/?p=1#respond" style="display:none;">Click here to cancel reply.</a></small>
 </div>
 <form action="/post/new_comment" method="post" id="commentform">
-<p><input type="text" name="author" id="author" value="" size="22" tabindex="1">
+<p><input type="text" name="author" id="author" value="{{comment_author|null}}" size="22" tabindex="1">
 <label for="author"><small>Name (required)</small></label></p>
 
-<p><input type="text" name="email" id="email" value="" size="22" tabindex="2">
+<p><input type="text" name="email" id="email" value="{{comment_email|null}}" size="22" tabindex="2">
 <label for="email"><small>Mail (will not be published) (required)</small></label></p>
 
-<p><input type="text" name="url" id="url" value="" size="22" tabindex="3">
+<p><input type="text" name="url" id="url" value="{{comment_website|null}}" size="22" tabindex="3">
 <label for="url"><small>Website</small></label></p>
 <!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
 

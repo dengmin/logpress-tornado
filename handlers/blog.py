@@ -70,7 +70,10 @@ class PostHandler(BlogHandler):
 		post = self.get_object_or_404(Post,id=int(postid))
 		post.readnum += 1
 		post.save()
-		self.render('post.html',post=post)
+		author = self.get_cookie('comment_author')
+		email = self.get_cookie('comment_email')
+		website = self.get_cookie('comment_website')
+		self.render('post.html',post=post,comment_author=author,comment_email=email,comment_website=website)
 
 class CategoryHandler(BlogHandler):
 	def get(self,name,page=1):
@@ -128,6 +131,9 @@ class PostCommentHandler(BaseHandler):
 				comment = Comment.create(post=post,ip=self.request.remote_ip,
 					author=author,email=email,website=url,
 					content=comment,parent_id=parent_id)
+				self.set_cookie('comment_author',author)
+				self.set_cookie('comment_email',email)
+				self.set_cookie('comment_website',url)
 				return self.redirect(comment.url)
 			else:
 				self.flash(u"请填写必要信息(姓名和电子邮件和评论内容)")
