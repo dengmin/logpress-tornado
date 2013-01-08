@@ -2,13 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
 <head profile="http://gmpg.org/xfn/11">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-<title>{%block title%}{%endblock%}{{settings.blog_name}}</title>
-
+<meta name="robots" content="index, follow" />
+<title>{%block title%}{%endblock%} {{settings.blog_name}}</title>
+<meta name="Keywords" content="{{settings.site_keywords}}"/>
+<meta name="Description" content="{{settings.site_desc}}"/>
 <link rel="stylesheet" href="{{static('fluid/style.css')}}" type="text/css" media="screen" />
 <link rel="stylesheet" href="{{static('fluid/print.css')}}" type="text/css" media="print" />
 <link rel="alternate" type="application/rss+xml" title="{{settings.blog_name}} RSS Feed" href="/feed" />
 <link rel="pingback" href="" />
+{%block header%}{%endblock%}
 </head>
 
 <body>

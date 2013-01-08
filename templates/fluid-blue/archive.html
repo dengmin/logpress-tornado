@@ -4,6 +4,8 @@
 		Archive for the &#8216;{{name}}&#8217; Category.
 	{%elif flag=='tag'%}
 		Posts tagged &#8216;{{name}}&#8217;
+	{%elif flag=='archives'%}
+		<p>Archive for the &#8216;{{year}}-{{month}}&#8217; Archive.</p>
 	{% endif %}
 {%endblock%}
 {%block main%}
@@ -31,7 +33,7 @@
 				<h2 class="posttitle"><a href="{{post.url}}" rel="bookmark" title="Permanent Link to {{post.title}}">{{post.title}}</a></h2>
 				<div class="postmetadata">{{post.created|datetimeformat}}</div>
 				<div class="postentry">
-					{{post.content|markdown}}
+					{{post.summary|markdown}}
 				</div>
 		
 				<div class="postmetadata">

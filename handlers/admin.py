@@ -99,6 +99,10 @@ class UsersHandler(AdminBaseHandler):
 	def get(self):
 		return self.render('admin/user/index.html',users=User.select(),nav='user')
 
+class CommentsHandler(AdminBaseHandler):
+	def get(self):
+		self.render('admin/comment/comment.html')
+
 class LinksHandler(AdminBaseHandler):
 	def get(self,page=1):
 		pagination = Pagination(Link.select(),int(page),1)

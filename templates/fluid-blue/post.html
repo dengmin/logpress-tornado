@@ -1,5 +1,11 @@
 {%extends "fluid-blue/base.html"%}
 {%block title%}{{post.title}}{%endblock%}
+{%block header%}
+{%if post%}
+<meta name="Keywords" content="{{post.tags}}"/>
+<meta name="Description" content="{{post.title}}"/>
+{%endif%}
+{%endblock%}
 {%block main%}
 	<div id="content">
 		{%if post%}
