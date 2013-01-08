@@ -1,4 +1,8 @@
 User-Agent: *
 Crawl-delay: 10
 
+Disallow: /static/
 Disallow: /admin/
+Disallow: /templates/
+Sitemap: {{settings.domain}}/sitemap.xml
+Sitemap: {{settings.domain}}/baidu.xml

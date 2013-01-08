@@ -8,6 +8,7 @@ from jinja2 import FileSystemLoader
 from handlers import BaseHandler
 from models import Post,Category,Tag,Link,Comment
 import os,re
+from datetime import datetime
 from lib.pagination import Pagination
 import peewee
 from peewee import fn
@@ -148,6 +149,16 @@ class PostCommentHandler(BaseHandler):
 				self.flash(u"请填写必要信息(姓名和电子邮件和评论内容)")
 				return self.redirect("%s#respond"%(post.url))
 
+class SitemapHandler(BaseHandler):
+	def get(self):
+		self.set_header("Content-Type", "text/xml")
+		self.render('sitemap.xml',posts=Post.select(),today=datetime.today())
+
+class BaiduSitemapHandler(BaseHandler):
+	def get(self):
+		self.set_header("Content-Type", "text/xml")
+		self.render('baidu.xml',posts=Post.select())
+
 routes = [
 	(r"/", IndexHandler),
 	(r'/page/(\d+)',IndexHandler),
@@ -157,6 +168,8 @@ routes = [
 	(r'/category/([^/]+)',CategoryHandler),
 	(r'/category/([^/]+)/(\d+)',CategoryHandler),
 	(r'/feed',FeedHandler),
+	(r'/sitemap.xml',SitemapHandler),
+	(r'/baidu.xml',BaiduSitemapHandler),
 	(r'/archives/(\d+)/(\d+)',ArchiveHandler),
 	(r'/archive/(\d+)/feed',CommentFeedHandler),
 	(r'/post/new_comment',PostCommentHandler),

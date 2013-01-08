@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="{{settings.domain}}/static/sitemap.xsl"?>
+<!-- generator="logpress" -->
+<!-- sitemap-generator-url="http://www.arnebrachhold.de" sitemap-generator-version="3.2.4" -->
+<!-- generated-on="{{today|datetimeformat}}" -->
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">	
+
+	<url>
+		<loc>{{settings.domain}}</loc>
+		<lastmod>{{today|datetimeformat("%Y-%m-%dT%H:%M:%S+00:00")}}</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.0</priority>
+	</url>
+<!-- Debug: Start Postings -->
+{%for post in posts%}
+	<url>
+		<loc>{{settings.domain}}{{post.url}}</loc>
+		<lastmod>{{post.created|datetimeformat("%Y-%m-%dT%H:%M:%S+00:00") }}</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.5</priority>
+	</url>
+	{%endfor%}
+<!-- Debug: End Postings -->
+<!-- Debug: Start Custom Pages -->
+<!-- Debug: End Custom Pages -->
+<!-- Debug: Start additional URLs -->
+<!-- Debug: End additional URLs -->
+</urlset>

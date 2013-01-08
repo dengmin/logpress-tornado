@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<document>
+	<webSite>{{settings.domain}}</webSite>
+	<webMaster>{{settings.blog_name}}</webMaster>
+	<updatePeri>1800</updatePeri>
+	{% for post in posts%}
+	<item>
+		<title>{{post.title}}</title>
+		<link>{{settings.domain}}{{post.url}}</link>
+		<text>{{post.summary|markdown}}</text>
+		<image></image>
+		<keywords>{{post.tags}}</keywords>
+		<author>{{settings.blog_name}}</author>
+		<source>{{settings.blog_name}}</source>
+		<pubDate>{{post.created|datetimeformat}}</pubDate>
+	</item>
+	{% endfor %}
+</document>
