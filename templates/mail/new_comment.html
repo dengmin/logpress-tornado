@@ -1,1 +1,10 @@
-new comment
+文章<b><a href="{{comment.post.absolute_url}}">{{comment.post.title}}</a></b> 有了新的评论<br/>
+<p/>
+作者：{{comment.author}} (IP: {{comment.ip}})<br/>
+电子邮件： {{comment.email}}<br/>
+URL： {{comment.weburl}}<br/>
+评论：<br/>
+{{comment.content}}
+
+<p/>
+点击回复 <a href="{{comment.url}}">{{comment.url}}</a>

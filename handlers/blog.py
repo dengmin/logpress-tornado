@@ -7,7 +7,7 @@ except:pass
 from jinja2 import FileSystemLoader
 from handlers import BaseHandler
 from models import Post,Category,Tag,Link,Comment
-import os,re
+import os,re,urllib
 from datetime import datetime
 from lib.pagination import Pagination
 import peewee
@@ -80,14 +80,18 @@ class PostHandler(BlogHandler):
 		self.render('post.html',post=post,comment_author=author,comment_email=email,comment_website=website)
 
 class ArchiveHandler(BlogHandler):
-	def get(self,year,month):
-		posts = Post.select().where(Post.created ** "%%s")
-		for p in posts:
-			print p.id
+	def get(self,year,month,page=1):
+		format = '%%%s-%s%%'%(year,month)
+		posts = Post.select().where(Post.created ** format)
+		pagination = Pagination(posts,int(page),per_page=8)
+		self.render('archive.html',
+				year=year,month=month,
+				pagination=pagination,flag='archives',
+				obj_url='/archives/%s/%s'%(year,month))
 
 class CategoryHandler(BlogHandler):
 	def get(self,name,page=1):
-		posts = Post.select().join(Category).where(Category.name=='python')
+		posts = Post.select().join(Category).where(Category.name==name)
 		pagination = Pagination(posts,int(page),per_page=8)
 		self.render('archive.html',pagination=pagination,name=name,obj_url='/category/%s'%(name),flag='category')
 

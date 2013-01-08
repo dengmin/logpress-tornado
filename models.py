@@ -11,6 +11,7 @@ import urllib
 from core import db
 from lib.helpers import create_token,cached_property
 from core import smtp_server,settings
+from config import DOMAIN as domain
 
 class User(db.Model):
 	username = peewee.CharField()
@@ -41,7 +42,7 @@ class Category(db.Model):
 
 	@property
 	def url(self):
-		return '/category/%s'%(self.name)
+		return '/category/%s'%(urllib.quote(self.name.encode('utf8')))
 
 	class Meta:
 		db_table = 'category'
@@ -59,6 +60,10 @@ class Post(db.Model):
 	@property
 	def url(self):
 		return '/post/post-%d.html'%(self.id)
+
+	@property
+	def absolute_url(self):
+		return '%s%s'%(domain,self.url)
 	
 	@cached_property
 	def prev(self):
@@ -112,7 +117,7 @@ class Comment(db.Model):
 
 	@property
 	def url(self):
-		return '/post/post-%d.html#comment-%d'%(self.post.id,self.id)
+		return '%s/post/post-%s.html#comment-%s'%(domain,self.post.id,self.id)
 
 	def gravatar_url(self,size=80):
 		return 'http://www.gravatar.com/avatar/%s?d=identicon&s=%d' % \
@@ -136,9 +141,9 @@ from lib.mail.message import TemplateEmailMessage
 def send_email(model_class, instance,created):
 	if instance.parent_id == '0':
 		message = TemplateEmailMessage(u"收到新的评论",'mail/new_comment.html',
-			settings['smtp_user'],to=[settings['admin_email']],connection=smtp_server)
+			settings['smtp_user'],to=[settings['admin_email']],connection=smtp_server,params={'comment':instance})
 	else:
 		message = TemplateEmailMessage(u"评论有新的回复",'mail/reply_comment.html',
-			settings['smtp_user'],to=[instance.email],connection=smtp_server)
+			settings['smtp_user'],to=[instance.email],connection=smtp_server,params={'comment':instance})
 	message.send()
 

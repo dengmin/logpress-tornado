@@ -5,7 +5,7 @@ try:
 	psyco.full()
 except:pass
 from datetime import datetime
-from markdown import Markdown
+from lib.markdown import Markdown
 
 markdowner = Markdown()
 
