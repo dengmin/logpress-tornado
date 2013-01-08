@@ -7,6 +7,7 @@
 		<a rel="nofollow" id="cancel-comment-reply-link" href="#respond" style="display:none;">取消回复</a>
 	</h3>
 	<form action="/post/new_comment" method="POST" id="commentform">
+		{{xsrf()}}
 		<p class="comment-notes">电子邮件地址不会被公开。 必填项已用 <span class="required">*</span> 标注</p>
 		<p class="comment-form-author">
 			<label for="author">姓名 <span class="required">*</span></label> 

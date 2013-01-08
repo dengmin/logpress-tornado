@@ -1,6 +1,7 @@
 {%extends "admin/base.html"%}
 {%block main%}
 <form action="/admin/post/add" method="post">
+	{{xsrf()}}
 	<div class="input-prepend">
 		<span class="add-on">Title</span>
 		<input type="text" class="span5" name="title">

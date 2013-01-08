@@ -29,6 +29,7 @@
 	<small><a rel="nofollow" id="cancel-comment-reply-link" href="/?p=1#respond" style="display:none;">Click here to cancel reply.</a></small>
 </div>
 <form action="/post/new_comment" method="post" id="commentform">
+	{{xsrf()}}
 <p><input type="text" name="author" id="author" value="{{comment_author|null}}" size="22" tabindex="1">
 <label for="author"><small>Name (required)</small></label></p>
 

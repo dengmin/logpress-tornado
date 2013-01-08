@@ -51,6 +51,7 @@
               <div class="login-form">
                   <h2>Admin Login</h2>
                   <form action="/account/login" method="post">
+                    {{xsrf()}}
                     {%set messages=handler.get_flashed_messages() %}
                     {%if messages%}
                         <div class="alert alert-error">

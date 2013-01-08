@@ -2,6 +2,7 @@
 {% block main %}
 <div class="well">
 	<form method="post" class="form-inline" action="/admin/links">
+		{{xsrf()}}
 		<input type="text" name="name" placeholder="Name"/>
 		<input type="text" name="url" placeholder="URL"/>
 		<button type="submit" class="btn btn-primary">Save</button>

@@ -13,7 +13,7 @@ import peewee
 from peewee import fn
 from peewee import RawQuery
 from tornado.web import StaticFileHandler
-from database import db
+from core import db
 
 class BlogHandler(BaseHandler):
 
