@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 #coding=utf-8
-
+try:
+    import psyco
+    psyco.full()
+except:pass
 import peewee
 import sys
 from playhouse.signals import Model as _model

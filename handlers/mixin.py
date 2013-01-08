@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 #coding=utf8
-
+try:
+	import psyco
+	psyco.full()
+except:pass
 from pygments import highlight
 from pygments.lexers import get_lexer_for_filename
 from pygments.formatters import HtmlFormatter

@@ -20,5 +20,5 @@ ADMIN_EMAIL = '594611460@qq.com'
 SMTP_SERVER ='smtp.qq.com'
 SMTP_PORT = 587
 SMTP_USER = 'noreply@szgeist.com'
-SMTP_PASSWORD = 'xxxxxxx'
+SMTP_PASSWORD = 'xxxxxx'
 SMTP_USETLS = True

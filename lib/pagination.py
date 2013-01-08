@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 #encoding=utf-8
+try:
+    import psyco
+    psyco.full()
+except:pass
 from math import ceil
 
 class Pagination(object):

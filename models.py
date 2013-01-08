@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 #coding=utf-8
+try:
+	import psyco
+	psyco.full()
+except:pass
 import peewee
 import datetime
 import hashlib
@@ -70,8 +74,7 @@ class Post(db.Model):
 
 	@property
 	def summary(self):
-		if self.content:
-			return self.content().split('<!--more-->')[0]
+		return self.content.split('<!--more-->')[0] if self.content else self.content
 	
 	def taglist(self):
 		if self.tags:

@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 #coding=utf8
 
+try:
+	import psyco
+	psyco.full()
+except:pass
 from handlers import BaseHandler,AdminBaseHandler
 from models import Post,Category,Tag,User,Link
 from lib.pagination import Pagination

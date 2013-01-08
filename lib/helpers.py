@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 #coding=utf8
-
+try:
+    import psyco
+    psyco.full()
+except:pass
 from markdown import Markdown
 from random import choice
 import string

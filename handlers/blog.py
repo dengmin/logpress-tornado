@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 #coding=utf8
-
+try:
+	import psyco
+	psyco.full()
+except:pass
 from jinja2 import FileSystemLoader
 from handlers import BaseHandler
 from models import Post,Category,Tag,Link,Comment
@@ -38,9 +41,9 @@ class BlogHandler(BaseHandler):
 
 	def get_archives(self):
 		if isinstance(db.database,peewee.SqliteDatabase):
-			return RawQuery(Post,"select strftime('%Y年-%m月',created) month,sum(id) count from posts group by month")
+			return RawQuery(Post,"select strftime('%Y',created) year,strftime('%m',created) month,count(id) count from posts group by month")
 		elif isinstance(db.database,peewee.MySQLDatabase):
-			return RawQuery("select date_format(created,'%Y年-%m月') month,count(id) count from posts group by month")
+			return RawQuery(Post,"select date_format(created,'%Y') year,date_format(created,'%m') month,count(id) count from posts group by month")
 		return None
 
 	def get_calendar_widget(self):
@@ -74,6 +77,12 @@ class PostHandler(BlogHandler):
 		email = self.get_cookie('comment_email')
 		website = self.get_cookie('comment_website')
 		self.render('post.html',post=post,comment_author=author,comment_email=email,comment_website=website)
+
+class ArchiveHandler(BlogHandler):
+	def get(self,year,month):
+		posts = Post.select().where(Post.created ** "%%s")
+		for p in posts:
+			print p.id
 
 class CategoryHandler(BlogHandler):
 	def get(self,name,page=1):
@@ -148,6 +157,7 @@ routes = [
 	(r'/category/([^/]+)',CategoryHandler),
 	(r'/category/([^/]+)/(\d+)',CategoryHandler),
 	(r'/feed',FeedHandler),
+	(r'/archives/(\d+)/(\d+)',ArchiveHandler),
 	(r'/archive/(\d+)/feed',CommentFeedHandler),
 	(r'/post/new_comment',PostCommentHandler),
 ]

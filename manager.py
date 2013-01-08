@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 #coding=utf8
-
+try:
+	import psyco
+	psyco.full()
+except:pass
 import tornado
 import tornado.web
 from tornado.httpserver import HTTPServer

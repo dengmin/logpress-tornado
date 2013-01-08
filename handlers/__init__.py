@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 #coding=utf8
-
+try:
+	import psyco
+	psyco.full()
+except:pass
 from tornado.web import RequestHandler,HTTPError
 from handlers.mixin import FlashMessagesMixin,ExceptionMixin
 from lib.session import Session

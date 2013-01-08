@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 #coding=utf8
-
+try:
+	import psyco
+	psyco.full()
+except:pass
 from handlers import BaseHandler
-
 from models import User
 
 class LoginHandler(BaseHandler):

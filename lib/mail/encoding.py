@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+#coding=utf8
+try:
+    import psyco
+    psyco.full()
+except:pass
 import types
 import urllib
 import locale

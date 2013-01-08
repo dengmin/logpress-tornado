@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+#encoding=utf-8
+
+try:
+    import psyco
+    psyco.full()
+except:pass
 import cPickle as pickle
 from uuid import uuid4
 import time

@@ -3,7 +3,7 @@
 			<li id="" class="widget widget_search">
 				<form role="search" method="get" id="searchform" action="http://demo.daxiawp.com/dx-qwt/">
 					<div>
-					<input type="text" size="20" name="s" id="s" value="Search..." onblur="if(this.value=='') this.value='Search...';" onfocus="if(this.value=='Search...') this.value='';">
+					<input type="text" size="20" name="s" id="s" placeholder="Search...">
 					<input type="submit" id="searchsubmit" value="搜索">
 					</div>
 				</form>
@@ -48,7 +48,7 @@
 					{%if q%}
 					{%for post in q%}
 					<li class="cat-item">
-						<a href="#">{{post.month}}({{post.count}})</a>
+						<a href="/archives/{{post.year}}/{{post.month}}">{{post.year}}年-{{post.month}}月({{post.count}})</a>
 					</li>
 					{% endfor %}
 					{%endif%}
