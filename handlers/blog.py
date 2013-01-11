@@ -121,6 +121,8 @@ _email_re = re.compile(
     r'|^"([\001-\010\013\014\016-\037!#-\[\]-\177]|\\[\001-011\013\014\016-\177])*"' # quoted-string
     r')@(?:[A-Z0-9]+(?:-*[A-Z0-9]+)*\.)+[A-Z]{2,6}$', re.IGNORECASE)
 
+_url_re = re.compile(r'(http://[^/\\]+)', re.I)
+
 class PostCommentHandler(BaseHandler):
 
 	@property
@@ -138,10 +140,16 @@ class PostCommentHandler(BaseHandler):
 		if postid:
 			post = Post.get(id=int(postid))
 			if author and email and comment:
+				if len(author) >18:
+					self.flash('UserName is too long.')
+					return self.redirect("%s#respond"%(post.url))
 				if not _email_re.match(email):
 					self.flash(u'Email address is invalid.')
 					return self.redirect("%s#respond"%(post.url))
-				
+				if url and not _url_re.match(url):
+					self.flash(u'website is invalid.')
+					return self.redirect("%s#respond"%(post.url))
+
 				comment = Comment.create(post=post,ip=self.request.remote_ip,
 					author=author,email=email,website=url,
 					content=comment,parent_id=parent_id)

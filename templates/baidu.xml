@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <document>
 	<webSite>{{settings.domain}}</webSite>
-	<webMaster>{{settings.blog_name}}</webMaster>
+	<webMaster>{{settings.site_name}}</webMaster>
 	<updatePeri>1800</updatePeri>
 	{% for post in posts%}
 	<item>
@@ -10,8 +10,8 @@
 		<text>{{post.summary|markdown}}</text>
 		<image></image>
 		<keywords>{{post.tags}}</keywords>
-		<author>{{settings.blog_name}}</author>
-		<source>{{settings.blog_name}}</source>
+		<author>{{settings.site_name}}</author>
+		<source>{{settings.site_name}}</source>
 		<pubDate>{{post.created|datetimeformat}}</pubDate>
 	</item>
 	{% endfor %}

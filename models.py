@@ -64,6 +64,10 @@ class Post(db.Model):
 	@property
 	def absolute_url(self):
 		return '%s%s'%(domain,self.url)
+
+	@property
+	def comment_feed(self):
+		return '%s/archive/%s/feed'(domain,self.id)
 	
 	@cached_property
 	def prev(self):

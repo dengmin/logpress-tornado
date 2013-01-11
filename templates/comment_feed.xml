@@ -2,14 +2,14 @@
 <rss version='2.0'>
   <channel>
   <title><![CDATA[Comments on:{{post.title}}]]></title>
-  <atom:link href="{{settings.domain}}/archive/{{post.id}}/feed" rel="self" type="application/rss+xml" />
+  <atom:link href="{{post.comment_feed}}" rel="self" type="application/rss+xml" />
   <description><![CDATA[{{settings.site_desc}}]]></description>
   <link>{{settings.domain}}</link>
   <language>zh-cn</language>
   <lastBuildDate>Wed, 19 Dec 2012 01:26:06 +0000</lastBuildDate>
   <sy:updatePeriod>hourly</sy:updatePeriod>
   <sy:updateFrequency>1</sy:updateFrequency>
-  <generator>Rss Powered By {{settings.blog_name}}</generator>
+  <generator>Rss Powered By {{settings.site_name}}</generator>
   
   {% for comment in post.comments %}
   <item>

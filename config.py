@@ -4,7 +4,7 @@ import os
 
 DEBUG = True
 
-BLOG_NAME = u'Logpress'
+SITE_NAME = u'Logpress'
 SITE_KEYWORDS=""""""
 SITE_DESC= """blog powered by tornado,jinja2,peewee"""
 DOMAIN='http://0.0.0.0:9000'
@@ -21,5 +21,5 @@ ADMIN_EMAIL = '594611460@qq.com'
 SMTP_SERVER ='smtp.qq.com'
 SMTP_PORT = 587
 SMTP_USER = 'noreply@szgeist.com'
-SMTP_PASSWORD = ''
+SMTP_PASSWORD = 'xxxxxx'
 SMTP_USETLS = True

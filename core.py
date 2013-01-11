@@ -25,7 +25,7 @@ settings.update({
 jinja_environment = Environment(
 			loader = FileSystemLoader(settings['template_path']),
 			auto_reload = settings['debug'],
-			autoescape = True)
+			autoescape = False)
 
 db = Database({'db':settings['db_name'],'engine':settings['db_engine']})
 

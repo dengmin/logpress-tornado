@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <rss version='2.0'>
   <channel>
-  <title><![CDATA[{{settings.blog_name}}]]></title>
+  <title><![CDATA[{{settings.site_name}}]]></title>
   <description><![CDATA[{{settings.site_desc}}]]></description>
   <link>{{settings.domain}}</link>
   <language>zh-cn</language>
-  <docs>{{settings.blog_name}}</docs>
+  <docs>{{settings.site_desc}}</docs>
   <sy:updatePeriod>hourly</sy:updatePeriod>
   <sy:updateFrequency>1</sy:updateFrequency>
-  <generator>Rss Powered By {{settings.blog_name}}</generator>
+  <generator>Rss Powered By {{settings.site_name}}</generator>
   {% for post in posts%}
   <item>
     <title><![CDATA[{{post.title}}]]></title>
@@ -17,7 +17,7 @@
     <pubDate>{{post.created|datetimeformat}}</pubDate>
     <category><![CDATA[{{post.category.name}}]]></category>
     <description><![CDATA[{{post.content|markdown}}]]></description>
-    <wfw:commentRss>{{settings.domain}}/archive/{{post.id}}/feed</wfw:commentRss>
+    <wfw:commentRss>{{post.comment_feed}}</wfw:commentRss>
     <slash:comments>{{post.comments.count()}}</slash:comments>
   </item>
   {% endfor %}

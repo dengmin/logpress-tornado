@@ -20,17 +20,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
-<title>{{settings.blog_name}}</title>
+<title>{{settings.site_name}}</title>
 <link rel="stylesheet" type="text/css" media="all" href="{{static('default/style.css')}}" />
 <link rel="pingback" href="" />
-<link rel="alternate" type="application/rss+xml" title="{{settings.blog_name}} &raquo; Feed" href="/feed" />
+<link rel="alternate" type="application/rss+xml" title="{{settings.site_name}} &raquo; Feed" href="/feed" />
 
 </head>
 <body class="home blog">
 	<div id="header-wrap">
 		<div id="header">
 			<div class="h_top">
-				<h1><a href="{{settings.domain}}" title="{{settings.blog_name}}">{{settings.blog_name}}</a></h1>
+				<h1><a href="{{settings.domain}}" title="{{settings.site_name}}">{{settings.site_name}}</a></h1>
 				<p>blog</p>
 			</div>
 			<div class="h_bottom">
@@ -50,7 +50,7 @@
 		{% endblock %}
 		<div id="footer">
 			<div id="copyright">
-				©2013 <a href="{{settings.doamin}}" title="{{settings.blog_name}}">{{settings.blog_name}}</a> All rights reserved. {% set request_time = 1000.0 * request.request_time() %}
+				©2013 <a href="{{settings.doamin}}" title="{{settings.site_name}}">{{settings.site_name}}</a> All rights reserved. {% set request_time = 1000.0 * request.request_time() %}
 				<span class="label-success">{{"%.2f ms" % request_time}}</span>
 			</div>
 			<p class="daxiawp">
