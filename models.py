@@ -49,7 +49,7 @@ class Category(db.Model):
 
 class Post(db.Model):
 	title = peewee.CharField()
-	slug = peewee.CharField(db_index=True, max_length=100)
+	slug = peewee.CharField(index=True, max_length=100)
 	category = peewee.ForeignKeyField(Category, related_name='posts')
 	content = peewee.TextField()
 	readnum = peewee.IntegerField(default=0)
@@ -139,9 +139,9 @@ class Link(db.Model):
 		db_table = 'links'
 
 
-from playhouse.signals import connect, post_save
+from playhouse.signals import post_save
 from lib.mail.message import TemplateEmailMessage
-@connect(post_save,sender=Comment)
+@post_save(sender=Comment)
 def send_email(model_class, instance,created):
 	if instance.parent_id == '0':
 		message = TemplateEmailMessage(u"收到新的评论",'mail/new_comment.html',

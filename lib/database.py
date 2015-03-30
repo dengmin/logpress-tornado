@@ -7,7 +7,7 @@ except:pass
 import peewee
 import sys
 from playhouse.signals import Model as _model
-from playhouse.signals import connect,post_save
+from playhouse.signals import post_save
 from lib.helpers import load_class
 
 class Database(object):
