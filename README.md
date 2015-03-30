@@ -4,11 +4,12 @@ logpress-tornado
 使用[tornado][tornado],[jinja2][jinja2],[peewee][peewee]开发的基于markdown写作的博客 [站点][demo]
 
 环境配置
-	```
+
 	virtualenv pyenv
+
 	source pyenv/bin/activate
+
 	pip install -r requirements.txt
-	```
 
 1. **创建数据库**
 
