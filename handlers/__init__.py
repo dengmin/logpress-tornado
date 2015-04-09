@@ -18,8 +18,8 @@ class BaseHandler(RequestHandler,FlashMessagesMixin,ExceptionMixin):
 			'request': self.request,
 			'user': self.current_user,
 			'static': self.static_url,
-			'handler': self,}
-        )
+			'handler': self,
+            })
 
 		return self._jinja_render(path = self.get_template_path(),filename = template_name,
             auto_reload = self.settings['debug'], **context)

@@ -5,7 +5,7 @@
     <title>Admin Login</title>
 
     <!-- Le styles -->
-    <link rel="stylesheet" href="http://lib.sinaapp.com/js/bootstrap/latest/css/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="http://lib.sinaapp.com/js/bootstrap/2.2.1/css/bootstrap.min.css" type="text/css"/>
     <style type="text/css">
       /* Override some defaults */
       html, body {
@@ -13,66 +13,53 @@
       }
       body {
         padding-top: 40px; 
+		padding-bottom:40px;
+			background-color:#eee;
       }
-      .container {
-        width: 400px;
-      }
+	  .form-control{width:100%;}
+	  .form-signin{max-width:330px;padding:15px;margin:0 auto;}
+	  .form-signin .form-signin-heading{margin-bottom:10px;text-align:center;}
+	  .form-signin .form-control{position:relative;height:auto;font-size16px;padding:10px;
+	    -webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	  }
+	  .form-signin .form-control:focus {
+		    z-index: 2;
+	  }
+	  .form-signin input[type="email"] {
+		  margin-bottom: -1px;
+		  border-bottom-right-radius: 0;
+		  border-bottom-left-radius: 0;
+	  }
+	  .form-signin input[type="password"] {
+		  margin-bottom: 10px;
+		  border-top-left-radius: 0;
+		  border-top-right-radius: 0;
+	  }
 
-      /* The white background content wrapper */
-      .container > .content {
-        background-color: #fff;
-        padding: 20px;
-        margin: 0 -20px; 
-        -webkit-border-radius: 10px 10px 10px 10px;
-           -moz-border-radius: 10px 10px 10px 10px;
-                border-radius: 10px 10px 10px 10px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                box-shadow: 0 1px 2px rgba(0,0,0,.15);
-      }
-
-    .login-form {
-      margin-left: 65px;
-    }
-  
-    legend {
-      margin-right: -50px;
-      font-weight: bold;
-      color: #404040;
-    }
 
     </style>
 
 </head>
 <body>
   <div class="container">
-      <div class="content">
-          <div class="row">
-              <div class="login-form">
-                  <h2>Admin Login</h2>
-                  <form action="/account/login" method="post">
-                    {{xsrf()}}
-                    {%set messages=handler.get_flashed_messages() %}
-                    {%if messages%}
-                        <div class="alert alert-error">
-                        {% for type, msg in messages%}
-                          {{msg}}
-                        {% endfor %}
-                        </div>
-                    {%endif%}
-                          <div class="input-prepend">
-                              <span class="add-on">帐号</span>
-                              <input class="span3" type="text" placeholder="UserName/Email" name="username">
-                          </div>
-                          <div class="input-prepend">
-                            <span class="add-on">密码</span>
-                              <input class="span3" type="password" placeholder="" name="password">
-                          </div>
-                          <button class="btn btn-primary" type="submit">登录</button>
-                  </form>
-              </div>
-          </div>
-      </div>
+
+	<form action="/account/login" method="post" class="form-signin">
+		  <h2 class="form-signin-heading">Logpress</h2>
+		{{xsrf()}}
+		{%set messages=handler.get_flashed_messages() %}
+		{%if messages%}
+			<div class="alert alert-error">
+			{% for type, msg in messages%}
+			  {{msg}}
+			{% endfor %}
+			</div>
+		{%endif%}
+		<input type="text" name="username" class="form-control" placeholder="用户名" required autofocus>
+		<input type="password" name="password" class="form-control" placeholder="密码" required>
+		<button class="btn btn-primary btn-block" type="submit">登录</button>
+	  </form>
   </div> <!-- /container -->
 </body>
 </html>
