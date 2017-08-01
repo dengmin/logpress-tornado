@@ -1,12 +1,15 @@
 #!/usr/bin/env python
-#encoding=utf-8
+# encoding=utf-8
 try:
     import psyco
     psyco.full()
-except:pass
+except:
+    pass
 from math import ceil
 
+
 class Pagination(object):
+
     def __init__(self, query, page, per_page=20):
         #: pagination object.
         self.query = query
@@ -16,7 +19,7 @@ class Pagination(object):
         self.per_page = per_page
         #: the total number of items matching the query
         self.total = self.query.count()
-        self.items = self.query.paginate(page,per_page)
+        self.items = self.query.paginate(page, per_page)
 
     @property
     def pages(self):
@@ -69,7 +72,7 @@ class Pagination(object):
         last = 0
         for num in xrange(1, self.pages + 1):
             if num <= left_edge or \
-               (num > self.page - left_current - 1 and \
+               (num > self.page - left_current - 1 and
                 num < self.page + right_current) or \
                num > self.pages - right_edge:
                 if last + 1 != num:

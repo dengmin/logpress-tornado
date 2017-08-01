@@ -1,12 +1,13 @@
 #!/usr/bin/env python
-#coding=utf8
+# coding=utf8
 try:
-	import psyco
-	psyco.full()
-except:pass
+    import psyco
+    psyco.full()
+except:
+    pass
 from tornado.web import url
 
-from handlers import account,admin,blog
+from handlers import account, admin, blog
 from handlers import ErrorHandler
 
 routes = []

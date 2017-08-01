@@ -1,24 +1,28 @@
 #!/usr/bin/env python
-#coding=utf8
+# coding=utf8
 try:
     import psyco
     psyco.full()
-except:pass
+except:
+    pass
 from markdown import Markdown
 from random import choice
 import string
 import sys
+
 
 def create_token(length=16):
     chars = list(string.letters + string.digits)
     salt = ''.join([choice(chars) for i in range(length)])
     return salt
 
+
 def load_class(s):
     path, klass = s.rsplit('.', 1)
     __import__(path)
     mod = sys.modules[path]
     return getattr(mod, klass)
+
 
 def setting_from_object(obj):
     settings = dict()
@@ -27,15 +31,20 @@ def setting_from_object(obj):
             settings[key.lower()] = getattr(obj, key)
     return settings
 
+
 class ObjectDict(dict):
-	def __getattr__(self, key):
-		if key in self:
-			return self[key]
-		return None
-	def __setattr__(self, key, value):
-		self[key] = value
+
+    def __getattr__(self, key):
+        if key in self:
+            return self[key]
+        return None
+
+    def __setattr__(self, key, value):
+        self[key] = value
+
 
 class cached_property(object):
+
     def __init__(self, func, name=None, doc=None):
         self.__name__ = name or func.__name__
         self.__module__ = func.__module__

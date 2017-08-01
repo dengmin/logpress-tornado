@@ -1,10 +1,11 @@
 #!/usr/bin/env python
-#encoding=utf-8
+# encoding=utf-8
 
 try:
     import psyco
     psyco.full()
-except:pass
+except:
+    pass
 import cPickle as pickle
 from uuid import uuid4
 import time
@@ -12,6 +13,7 @@ import logging
 
 
 class RedisSessionStore(object):
+
     def __init__(self, redis_connection, **options):
         self.options = {
             'key_prefix': 'session',
@@ -42,6 +44,7 @@ class RedisSessionStore(object):
 
 
 class Session(object):
+
     def __init__(self, session_store, session_id=None, expires_days=None):
         self._store = session_store
         self._sid = session_id if session_id else self._store.generate_sid()
@@ -59,13 +62,13 @@ class Session(object):
     @property
     def id(self):
         return self._sid
-    
+
     def access(self, remote_ip):
-        access_info = {'remote_ip':remote_ip, 'time':'%.6f' % time.time()}
+        access_info = {'remote_ip': remote_ip, 'time': '%.6f' % time.time()}
         self._store.set_session(
-                self._sid,
-                'last_access',
-                pickle.dumps(access_info))
+            self._sid,
+            'last_access',
+            pickle.dumps(access_info))
 
     def last_access(self):
         access_info = self._store.get_session(self._sid, 'last_access')
@@ -103,5 +106,6 @@ class Session(object):
 
     def save(self):
         if self._dirty:
-            self._store.set_session(self._sid, self._data, 'data', self._expiry)
+            self._store.set_session(
+                self._sid, self._data, 'data', self._expiry)
             self._dirty = False
